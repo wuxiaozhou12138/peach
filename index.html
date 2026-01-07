@@ -23,15 +23,17 @@
 
 	</div>
 
-	<script type="module">
+	<!-- 使用本地版本的所有库 -->
+	<script src="three.min.js"></script>
+	<script src="tween.umd.js"></script>
+	<script src="CSS3DRenderer.js"></script>
+	<script src="TrackballControls.js"></script>
+	<script src="OrbitControls.js"></script>
 
-		import * as THREE from './three.module.js';
+	<script>
 
-		import { TWEEN } from './tween.module.min.js';
-		import { TrackballControls } from './TrackballControls.js';
-		import { CSS3DRenderer, CSS3DObject } from './CSS3DRenderer.js';
-		import { OrbitControls } from './OrbitControls.js';
-
+		// 使用全局变量替代ES6导入
+		const TWEEN = window.TWEEN;
 
 		const table = [];
 		const total = 100; // 总数
@@ -90,7 +92,7 @@
 					name: details
 				})
 
-				const objectCSS = new CSS3DObject(element);
+				const objectCSS = new THREE.CSS3DObject(element);
 				objectCSS.position.x = Math.random() * 4000 - 2000;
 				objectCSS.position.y = Math.random() * 4000 - 2000;
 				objectCSS.position.z = Math.random() * 4000 - 2000;
@@ -166,18 +168,18 @@
 
 			//
 
-			renderer = new CSS3DRenderer();
+			renderer = new THREE.CSS3DRenderer();
 			renderer.setSize(window.innerWidth, window.innerHeight);
 			document.getElementById('container').appendChild(renderer.domElement);
 
 			//
 
-			controls = new TrackballControls(camera, renderer.domElement);
+			controls = new THREE.TrackballControls(camera, renderer.domElement);
 			controls.minDistance = 0;
 			controls.maxDistance = 6000;
 			controls.addEventListener('change', render);
 
-			cameraRotate = new OrbitControls(camera, renderer.domElement);
+			cameraRotate = new THREE.OrbitControls(camera, renderer.domElement);
 			cameraRotate.addEventListener('change', render);
 			cameraRotate.autoRotate = true;
 
